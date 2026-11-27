@@ -1,0 +1,310 @@
+/* GLOBAL MBBS ABROAD - Custom Stylesheet with 3D & ScrollTrigger Enhancements */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --color-primary-dark: #0a192f;
+  --color-primary-navy: #0f274a;
+  --color-primary-blue: #1e3a8a;
+  --color-medical-blue: #0284c7;
+  --color-medical-cyan: #0ea5e9;
+  --color-medical-light: #f0f7ff;
+  --color-accent-teal: #0d9488;
+}
+
+html {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Lenis Recommended Smooth Scroll Base */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* 3D Perspective Containers */
+.perspective-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Russia Card 3D Highlight Styling */
+.russia-3d-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.russia-3d-visual {
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  transition: box-shadow 0.4s ease;
+}
+
+.russia-3d-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%, rgba(2, 132, 199, 0.15) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+}
+
+.russia-3d-visual:hover::after {
+  opacity: 1;
+}
+
+/* 3D Floating Elements */
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+.translate-z-20 {
+  transform: translateZ(20px);
+}
+.translate-z-30 {
+  transform: translateZ(30px);
+}
+.translate-z-40 {
+  transform: translateZ(40px);
+}
+
+/* Glassmorphism & Nav Styles */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-nav.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 10px 30px -10px rgba(10, 25, 47, 0.12);
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+/* Multi-Page Navigation Dropdowns */
+.nav-item-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 250px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 20px 35px -10px rgba(15, 39, 74, 0.15);
+  padding: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 50;
+}
+
+.nav-item-dropdown:hover .nav-dropdown-menu,
+.nav-item-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-dropdown-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.65rem;
+  font-size: 0.875rem;
+  color: #334155;
+  transition: all 0.2s ease;
+}
+
+.nav-dropdown-link:hover {
+  background-color: #f0f9ff;
+  color: #0284c7;
+  transform: translateX(4px);
+}
+
+/* Gradients */
+.bg-gradient-navy {
+  background: linear-gradient(135deg, #0a192f 0%, #0f274a 50%, #1e3a8a 100%);
+}
+
+.bg-gradient-medical {
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, #0f274a 0%, #0284c7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #38bdf8 0%, #a5f3fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtle Floating Animation */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: floatSlow 4s ease-in-out 2s infinite;
+}
+
+/* WhatsApp Pulse */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+  }
+}
+
+.pulse-whatsapp {
+  animation: pulseGlow 2.5s infinite;
+}
+
+/* Cards hover elevation */
+.card-hover {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(15, 39, 74, 0.12);
+}
+
+/* Process Timeline Interactive Progress Bar */
+.process-timeline {
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .process-timeline::before {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 8%;
+    right: 8%;
+    height: 3px;
+    background: #e2e8f0;
+    z-index: 1;
+    border-radius: 9999px;
+  }
+
+  .timeline-progress-fill {
+    content: '';
+    position: absolute;
+    top: 48px;
+    left: 8%;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #0d9488 100%);
+    z-index: 2;
+    border-radius: 9999px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 12px rgba(14, 165, 233, 0.6);
+  }
+}
+
+/* Image zoom on hover */
+.img-zoom-container {
+  overflow: hidden;
+}
+
+.img-zoom-container img {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.img-zoom-container:hover img {
+  transform: scale(1.08);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* FAQ Accordion Transitions */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  padding-top: 0.75rem;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  color: #0284c7;
+}
+
+/* Will-change hints for smooth GSAP hardware acceleration */
+.gsap-reveal,
+.gsap-parallax,
+.gsap-card,
+.gsap-rotate-3d {
+  will-change: transform, opacity;
+}
