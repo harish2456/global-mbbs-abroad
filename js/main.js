@@ -123,67 +123,71 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 6. Free Counselling Modal Trigger (Gold button & CTA)
-  const counsellingTriggers = document.querySelectorAll('.trigger-counselling-modal');
-  counsellingTriggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const content = `
-        <div class="space-y-4">
-          <p class="text-slate-600 text-sm">Speak with our senior medical admission counsellor for personalized university guidance, official fee structures, and end-to-end admission support.</p>
-          <form id="modalCounsellingForm" class="space-y-3">
+  function openCounsellingModal(prefillCountry = '', prefillNeet = '') {
+    const content = `
+      <div class="space-y-4">
+        <p class="text-slate-600 text-sm">Speak with our senior medical admission counsellor for personalized university guidance, official fee structures, and end-to-end admission support.</p>
+        <form id="modalCounsellingForm" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Student Full Name *</label>
+            <input type="text" id="mName" required placeholder="Enter student's full name" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition" />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">Student Full Name *</label>
-              <input type="text" id="mName" required placeholder="Enter student's full name" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition" />
+              <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp / Phone *</label>
+              <input type="tel" id="mPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition" />
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp / Phone *</label>
-                <input type="tel" id="mPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition" />
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
-                <input type="email" id="mEmail" placeholder="student@example.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition" />
-              </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+              <input type="email" id="mEmail" placeholder="student@example.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition" />
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Preferred Country</label>
-                <select id="mCountry" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition bg-white">
-                  <option value="">Any Preferred Country</option>
-                  <option value="Russia">Russia</option>
-                  <option value="Georgia">Georgia</option>
-                  <option value="Kazakhstan">Kazakhstan</option>
-                  <option value="Uzbekistan">Uzbekistan</option>
-                  <option value="Philippines">Philippines</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">NEET Status</label>
-                <select id="mNeet" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition bg-white">
-                  <option value="Yes">Qualified (NEET 2024/2025/2026)</option>
-                  <option value="Appearing">Appearing in NEET 2027</option>
-                  <option value="Pending">Score Pending</option>
-                </select>
-              </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Preferred Country</label>
+              <select id="mCountry" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition bg-white">
+                <option value="">Any Preferred Country</option>
+                <option value="Russia" ${prefillCountry === 'Russia' ? 'selected' : ''}>Russia</option>
+                <option value="Georgia" ${prefillCountry === 'Georgia' ? 'selected' : ''}>Georgia</option>
+                <option value="Kazakhstan" ${prefillCountry === 'Kazakhstan' ? 'selected' : ''}>Kazakhstan</option>
+                <option value="Uzbekistan" ${prefillCountry === 'Uzbekistan' ? 'selected' : ''}>Uzbekistan</option>
+                <option value="Philippines" ${prefillCountry === 'Philippines' ? 'selected' : ''}>Philippines</option>
+              </select>
             </div>
-            <div class="pt-2">
-              <button type="submit" class="w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-navy-950 font-bold py-3.5 rounded-xl shadow-lg transition">
-                Book My Free Counselling Session
-              </button>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">NEET Status</label>
+              <select id="mNeet" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-teal-600 focus:ring-2 focus:ring-teal-100 text-sm outline-none transition bg-white">
+                <option value="Yes" ${prefillNeet.includes('Yes') ? 'selected' : ''}>Qualified (NEET 2024/2025/2026)</option>
+                <option value="Appearing" ${prefillNeet.includes('Appearing') ? 'selected' : ''}>Appearing in NEET 2027</option>
+                <option value="No" ${prefillNeet.includes('No') || prefillNeet.includes('Not') ? 'selected' : ''}>Not Qualified / Not Appeared</option>
+              </select>
             </div>
-          </form>
-        </div>
-      `;
-      openModal("Book Free 1-on-1 MBBS Counselling", content);
+          </div>
+          <div class="pt-2">
+            <button type="submit" class="w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-navy-950 font-bold py-3.5 rounded-xl shadow-lg transition">
+              Book My Free Counselling Session
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+    openModal("Book Free 1-on-1 MBBS Counselling", content);
 
-      const modalForm = document.getElementById('modalCounsellingForm');
-      modalForm?.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        const name = document.getElementById('mName').value;
-        closeModal();
-        showToast(`Thank you, ${name}! Your free counselling session has been scheduled. A medical admission advisor will contact you shortly.`);
-      });
+    const modalForm = document.getElementById('modalCounsellingForm');
+    modalForm?.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      const name = document.getElementById('mName').value;
+      closeModal();
+      showToast(`Thank you, ${name}! Your free counselling session has been scheduled. A medical admission advisor will contact you shortly.`);
     });
+  }
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.trigger-counselling-modal');
+    if (trigger) {
+      e.preventDefault();
+      openCounsellingModal();
+    }
   });
 
   // 7. Eligibility Checker Interactive Form (Section 7)
@@ -191,45 +195,213 @@ document.addEventListener('DOMContentLoaded', () => {
   if (eligibilityForm) {
     eligibilityForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const neet = document.getElementById('elNeet')?.value || 'Yes';
-      const pcb = document.getElementById('elPcb')?.value || '50% - 60%';
+      const neet = document.getElementById('elNeet')?.value || 'Yes – NEET Qualified';
+      const pcb = document.getElementById('elPcb')?.value || '70% and Above';
+      const category = document.getElementById('elCategory')?.value || 'General Category – Minimum 50% PCB';
       const country = document.getElementById('elCountry')?.value || 'Russia';
 
-      let resultHtml = `
+      const isGeneral = category.includes('General Category');
+      const categoryName = category.split('–')[0].trim();
+      const pcbIsLowGeneral = (pcb === '40% – 50%') && isGeneral;
+      const pcbIsReservedBorderline = (pcb === '40% – 50%') && !isGeneral;
+
+      let status = '';
+      let headline = '';
+      let reason = '';
+      let subReason = '';
+      let icon = '✓';
+      let badgeClass = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+      let bannerBorder = 'border-emerald-200';
+      let bannerBg = 'bg-emerald-50/80';
+      let iconBg = 'bg-emerald-600';
+      let titleColor = 'text-emerald-950';
+      let descColor = 'text-emerald-900';
+
+      // 1. NEET Status & Cutoff Evaluation Logic
+      if (neet === 'No – NEET Not Qualified') {
+        status = 'Not Eligible';
+        headline = 'NEET Qualification Required';
+        icon = '✕';
+        badgeClass = 'bg-rose-100 text-rose-800 border border-rose-300';
+        bannerBorder = 'border-rose-200';
+        bannerBg = 'bg-rose-50/80';
+        iconBg = 'bg-rose-600';
+        titleColor = 'text-rose-950';
+        descColor = 'text-rose-900';
+        reason = 'Under statutory National Medical Commission (NMC) regulations, qualifying the NEET-UG examination is a mandatory prerequisite for Indian citizens and OCIs seeking admission to medical universities abroad. Without a qualifying NEET score, students are not eligible to register with NMC/State Medical Councils or appear for the Foreign Medical Graduate Examination (FMGE) / National Exit Test (NExT) to practice medicine in India.';
+        subReason = 'Candidates who have not qualified NEET cannot receive NMC eligibility certificates or medical practice licensure in India. Students are advised to prepare for and qualify NEET before proceeding with foreign medical admissions.';
+      } else if (neet === 'Not Appeared – Have Not Written NEET') {
+        status = 'Not Eligible';
+        headline = 'NEET Qualification Required Before Practising Medicine in India';
+        icon = '✕';
+        badgeClass = 'bg-rose-100 text-rose-800 border border-rose-300';
+        bannerBorder = 'border-rose-200';
+        bannerBg = 'bg-rose-50/80';
+        iconBg = 'bg-rose-600';
+        titleColor = 'text-rose-950';
+        descColor = 'text-rose-900';
+        reason = 'Under the NMC Foreign Medical Graduate Licentiate (FMGL) Regulations, clearing NEET-UG prior to taking admission in any foreign medical institution is an essential legal requirement if you intend to practice medicine in India. Without qualifying NEET-UG, an overseas MBBS degree cannot be registered for clinical practice in India.';
+        subReason = 'To be eligible for medical practice registration in India, you must register for, appear in, and clear the NEET-UG examination.';
+      } else if (neet === 'Appearing 2027 – Will Write NEET in 2027') {
+        if (pcbIsLowGeneral) {
+          status = 'Not Eligible';
+          headline = '12th PCB Cutoff Below General Category Requirement';
+          icon = '✕';
+          badgeClass = 'bg-rose-100 text-rose-800 border border-rose-300';
+          bannerBorder = 'border-rose-200';
+          bannerBg = 'bg-rose-50/80';
+          iconBg = 'bg-rose-600';
+          titleColor = 'text-rose-950';
+          descColor = 'text-rose-900';
+          reason = 'Even though you are appearing for NEET in 2027, General Category candidates must achieve a minimum aggregate of 50% in Physics, Chemistry, and Biology (PCB) in 10+2 / 12th Grade under statutory NMC criteria. Your selected range (40% – 50%) does not meet this minimum academic threshold.';
+          subReason = 'You will need to improve your 12th PCB aggregate to at least 50% through a board improvement examination to meet General Category eligibility.';
+        } else {
+          status = 'NEET Result Awaited';
+          headline = 'NEET 2027 Result Awaited';
+          icon = '⏳';
+          badgeClass = 'bg-amber-100 text-amber-800 border border-amber-300';
+          bannerBorder = 'border-amber-200';
+          bannerBg = 'bg-amber-50/80';
+          iconBg = 'bg-amber-500';
+          titleColor = 'text-amber-950';
+          descColor = 'text-amber-900';
+          reason = `Your 12th PCB aggregate (${pcb}) satisfies the statutory academic requirement for ${categoryName}. Your eligibility is currently provisional pending your NEET 2027 examination score and qualifying percentile.`;
+          subReason = `You can pre-book personalized university counselling, explore accredited colleges in ${country}, and reserve admission seats provisionally. Final admission and NMC compliance will be validated once your NEET 2027 scorecard is issued.`;
+        }
+      } else if (neet === 'Yes – NEET Qualified') {
+        if (pcbIsLowGeneral) {
+          status = 'Not Eligible';
+          headline = '12th PCB Percentage Below Minimum Cutoff';
+          icon = '✕';
+          badgeClass = 'bg-rose-100 text-rose-800 border border-rose-300';
+          bannerBorder = 'border-rose-200';
+          bannerBg = 'bg-rose-50/80';
+          iconBg = 'bg-rose-600';
+          titleColor = 'text-rose-950';
+          descColor = 'text-rose-900';
+          reason = 'Under statutory NMC regulations and foreign medical university criteria, General (Unreserved) category students must secure a minimum aggregate of 50% in Physics, Chemistry, and Biology (PCB) in their 10+2 / 12th examination. Your selected range (40% – 50%) does not meet this mandatory threshold.';
+          subReason = 'Candidates in the General Category must attain a minimum 50% aggregate in PCB in their 12th board exams to qualify for NMC registration and overseas MBBS admissions.';
+        } else if (country === 'Philippines') {
+          status = 'Additional Verification Required';
+          headline = 'Additional Verification Required – Curriculum & NMAT Requirements';
+          icon = '🔍';
+          badgeClass = 'bg-indigo-100 text-indigo-800 border border-indigo-300';
+          bannerBorder = 'border-indigo-200';
+          bannerBg = 'bg-indigo-50/80';
+          iconBg = 'bg-indigo-600';
+          titleColor = 'text-indigo-950';
+          descColor = 'text-indigo-900';
+          reason = 'You meet the baseline NEET qualification and academic PCB requirements. However, medical education in the Philippines follows the dual-degree BS-MD pathway (pre-med BS followed by 4-year MD) and requires clearing the National Medical Admission Test (NMAT). Furthermore, compliance with the NMC FMGL 2021 mandate (minimum 54-month continuous medical course + 12-month internship in a single campus) requires university-specific syllabus and duration verification prior to enrollment.';
+          subReason = 'Our senior advisors will examine your documentation to verify institutional NMC compliance and NMAT exam requirements for your selected Philippine university.';
+        } else if (pcbIsReservedBorderline) {
+          status = 'Additional Verification Required';
+          headline = `Additional Verification Required – University-Specific Cutoffs in ${country}`;
+          icon = '🔍';
+          badgeClass = 'bg-indigo-100 text-indigo-800 border border-indigo-300';
+          bannerBorder = 'border-indigo-200';
+          bannerBg = 'bg-indigo-50/80';
+          iconBg = 'bg-indigo-600';
+          titleColor = 'text-indigo-950';
+          descColor = 'text-indigo-900';
+          reason = `You meet the statutory minimum NMC requirement of 40% PCB for ${categoryName} with NEET qualification. However, specific medical universities in ${country} enforce institutional cutoffs (such as minimum 50% overall in PCB or 50% individual score in Biology) or require internal entrance evaluations / interviews.`;
+          subReason = `A personalized transcript review is required to match your exact subject-wise marks with eligible, NMC-compliant medical universities in ${country}.`;
+        } else {
+          status = 'Eligible';
+          headline = `Eligible for MBBS in ${country}`;
+          icon = '✓';
+          badgeClass = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+          bannerBorder = 'border-emerald-200';
+          bannerBg = 'bg-emerald-50/80';
+          iconBg = 'bg-emerald-600';
+          titleColor = 'text-emerald-950';
+          descColor = 'text-emerald-900';
+          reason = `Congratulations! You fulfill both statutory NMC requirements (NEET-UG qualification and valid 10+2 PCB aggregate for ${categoryName}) and standard university admission standards for recognized medical universities in ${country}.`;
+          
+          if (country === 'Russia') {
+            subReason = 'Russian State Medical Universities offer 6-year NMC-compliant English-medium MD (General Medicine) programs with world-class clinical hospitals and direct bilateral government recognition.';
+          } else if (country === 'Georgia') {
+            subReason = 'Georgian Medical Universities offer 6-year European-accredited English-medium MD curricula (WFME recognized). An internal English proficiency interview will be scheduled upon application.';
+          } else if (country === 'Kazakhstan') {
+            subReason = 'National & State Universities in Kazakhstan provide 5-year/6-year NMC-compliant English-medium MBBS courses with modern simulation centres and high clinical exposure.';
+          } else if (country === 'Uzbekistan') {
+            subReason = 'Government medical institutes in Uzbekistan offer 6-year NMC-compliant English-medium MD programs with affordable fee structures and dedicated Indian mess facilities.';
+          }
+        }
+      }
+
+      const resultHtml = `
         <div class="space-y-4">
-          <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start gap-3">
-            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold flex-shrink-0">✓</div>
-            <div>
-              <h4 class="font-bold text-emerald-950 text-base">Congratulations! You are Eligible for MBBS Abroad</h4>
-              <p class="text-xs text-emerald-800 mt-1">Based on NEET Status (${neet}), 12th PCB (${pcb}), and destination (${country}), you meet the NMC & WHO criteria for admission.</p>
+          
+          <!-- Primary Status Card -->
+          <div class="p-4 rounded-2xl ${bannerBg} border ${bannerBorder} flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-full ${iconBg} text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-sm">
+              ${icon}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h4 class="font-bold text-sm sm:text-base ${titleColor} leading-snug">${headline}</h4>
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${badgeClass} shadow-xs">
+                  ${status}
+                </span>
+              </div>
+              <p class="text-xs ${descColor} mt-2 leading-relaxed">
+                ${reason}
+              </p>
+              ${subReason ? `<p class="text-[11px] ${descColor} opacity-90 mt-1.5 pt-1.5 border-t border-black/5 leading-relaxed font-medium">${subReason}</p>` : ''}
             </div>
           </div>
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
-            <div class="flex justify-between py-1 border-b border-slate-200">
-              <span class="text-slate-500">Destination:</span>
-              <span class="font-bold">${country}</span>
+
+          <!-- Student Selected Details Summary -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2 mb-2.5">
+              <span class="font-bold text-slate-900 text-xs uppercase tracking-wider">Your Evaluation Summary</span>
+              <span class="text-[10px] font-semibold text-teal-800 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">NMC Compliant</span>
             </div>
-            <div class="flex justify-between py-1 border-b border-slate-200">
-              <span class="text-slate-500">Language of Instruction:</span>
-              <span class="font-bold">100% English Medium</span>
-            </div>
-            <div class="flex justify-between py-1 border-b border-slate-200">
-              <span class="text-slate-500">NMC Compliance:</span>
-              <span class="font-bold text-emerald-600">Verified & Approved</span>
-            </div>
-            <div class="flex justify-between py-1">
-              <span class="text-slate-500">Admissions Status:</span>
-              <span class="font-bold text-teal-600">2027 Admissions Open</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+              <div class="flex justify-between py-1 border-b border-slate-100 sm:border-b-0">
+                <span class="text-slate-500">NEET Status:</span>
+                <span class="font-bold text-slate-800 text-right">${neet}</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-100 sm:border-b-0">
+                <span class="text-slate-500">12th PCB %:</span>
+                <span class="font-bold text-slate-800 text-right">${pcb}</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-100 sm:border-b-0">
+                <span class="text-slate-500">Student Category:</span>
+                <span class="font-bold text-slate-800 text-right">${categoryName}</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-100 sm:border-b-0">
+                <span class="text-slate-500">Preferred Destination:</span>
+                <span class="font-bold text-teal-700 text-right">${country}</span>
+              </div>
             </div>
           </div>
-          <div class="pt-2">
-            <button onclick="document.getElementById('genericModal').classList.add('hidden'); document.body.style.overflow='';" class="trigger-counselling-modal w-full bg-teal-800 hover:bg-teal-900 text-white font-bold py-3 rounded-xl transition text-center text-sm shadow-md">
-              Proceed with Admission Guidance
+
+          <!-- Official NMC Statutory Advisory -->
+          <div class="p-3.5 rounded-xl bg-amber-50/90 border border-amber-200 text-[11px] text-amber-950 leading-relaxed space-y-1">
+            <div class="font-bold flex items-center gap-1.5 text-amber-900">
+              <span>⚖️</span> <span>Official NMC Regulatory Notice</span>
+            </div>
+            <p>
+              Under National Medical Commission (NMC) regulations, qualifying NEET-UG is an indispensable statutory requirement for Indian students seeking foreign medical degrees. <strong>Paying foreign university tuition fees or obtaining direct university admission does NOT remove, waive, or replace the mandatory NEET qualification requirement for medical registration or licensing in India.</strong>
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+            <button onclick="document.getElementById('genericModal').classList.add('hidden'); document.body.style.overflow=''; openCounsellingModal('${country}', '${neet}');" class="flex-1 btn-gold-primary py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md">
+              <span>📅 Book Free Expert Counselling</span>
             </button>
+            <a href="https://wa.me/917760665912?text=Hello%20Global%20MBBS%20Abroad,%20I%20checked%20my%20eligibility%20for%20${encodeURIComponent(country)}%20(Status:%20${encodeURIComponent(status)}).%20Please%20guide%20me%20further." target="_blank" rel="noopener noreferrer" class="btn-whatsapp-green px-5 py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              <span>Chat on WhatsApp</span>
+            </a>
           </div>
+
         </div>
       `;
-      openModal("Eligibility Assessment Result", resultHtml);
+
+      openModal("MBBS Eligibility Assessment Result", resultHtml);
     });
   }
 

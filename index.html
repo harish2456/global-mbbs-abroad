@@ -814,10 +814,10 @@
       <!-- Blue-tinted Banner Container with Clipboard Icon -->
       <div class="bg-gradient-to-r from-[#e7f4f8] via-[#e2f1f6] to-[#edf7fa] rounded-2xl p-6 sm:p-8 border border-teal-200/60 shadow-sm">
         
-        <form id="eligibilityForm" class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+        <form id="eligibilityForm">
           
-          <!-- Left Label: Icon + Heading + Description -->
-          <div class="lg:col-span-4 flex items-center gap-4">
+          <!-- Top Row: Icon + Heading + Description -->
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-5 pb-5 border-b border-teal-200/60">
             <div class="w-12 h-12 rounded-xl bg-teal-800 text-white flex items-center justify-center font-bold text-xl flex-shrink-0 shadow">
               📋
             </div>
@@ -827,46 +827,61 @@
             </div>
           </div>
 
-          <!-- Dropdown 1: NEET Qualified? -->
-          <div class="lg:col-span-2">
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">NEET Qualified?</label>
-            <select id="elNeet" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
-              <option value="Yes">Yes</option>
-              <option value="No">No / Not Yet</option>
-              <option value="Appearing">Appearing 2027</option>
-            </select>
-          </div>
+          <!-- Bottom Row: 4 Dropdowns + Button in a 5-column responsive grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+            
+            <!-- Dropdown 1: NEET Qualified? -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">NEET Qualified?</label>
+              <select id="elNeet" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
+                <option value="Yes – NEET Qualified">Yes – NEET Qualified</option>
+                <option value="No – NEET Not Qualified">No – NEET Not Qualified</option>
+                <option value="Not Appeared – Have Not Written NEET">Not Appeared – Have Not Written NEET</option>
+                <option value="Appearing 2027 – Will Write NEET in 2027">Appearing 2027 – Will Write NEET in 2027</option>
+              </select>
+            </div>
 
-          <!-- Dropdown 2: 12th PCB Percentage -->
-          <div class="lg:col-span-2">
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">12th PCB Percentage</label>
-            <select id="elPcb" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
-              <option value="Select % Range">Select % Range</option>
-              <option value="70% and Above">70% and Above</option>
-              <option value="60% - 70%">60% - 70%</option>
-              <option value="50% - 60%">50% - 60% (Eligible)</option>
-              <option value="40% - 50%">40% - 50% (Reserved)</option>
-            </select>
-          </div>
+            <!-- Dropdown 2: 12th PCB Percentage -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">12th PCB Percentage</label>
+              <select id="elPcb" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
+                <option value="70% and Above">70% and Above</option>
+                <option value="60% – 70%">60% – 70%</option>
+                <option value="50% – 60%">50% – 60%</option>
+                <option value="40% – 50%">40% – 50%</option>
+              </select>
+            </div>
 
-          <!-- Dropdown 3: Preferred Destination -->
-          <div class="lg:col-span-2">
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">Preferred Destination</label>
-            <select id="elCountry" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
-              <option value="Select Country">Select Country</option>
-              <option value="Russia">Russia</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Kazakhstan">Kazakhstan</option>
-              <option value="Uzbekistan">Uzbekistan</option>
-              <option value="Philippines">Philippines</option>
-            </select>
-          </div>
+            <!-- Dropdown 3: Student Category -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Student Category</label>
+              <select id="elCategory" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
+                <option value="General Category – Minimum 50% PCB">General Category – Minimum 50% PCB</option>
+                <option value="OBC – Minimum 40% PCB">OBC – Minimum 40% PCB</option>
+                <option value="SC – Minimum 40% PCB">SC – Minimum 40% PCB</option>
+                <option value="ST – Minimum 40% PCB">ST – Minimum 40% PCB</option>
+              </select>
+            </div>
 
-          <!-- Button: Gold Check Eligibility -->
-          <div class="lg:col-span-2 pt-4 lg:pt-0">
-            <button type="submit" class="btn-gold-primary w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5">
-              <span>🔍 Check Eligibility</span>
-            </button>
+            <!-- Dropdown 4: Preferred Destination -->
+            <div>
+              <label class="block text-[11px] font-bold text-slate-700 mb-1">Preferred Destination</label>
+              <select id="elCountry" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 focus:border-teal-700 outline-none shadow-sm">
+                <option value="Russia">Russia</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Philippines">Philippines</option>
+              </select>
+            </div>
+
+            <!-- Button: Gold Check Eligibility -->
+            <div>
+              <button type="submit" class="btn-gold-primary w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm">
+                <span>🔍 Check Eligibility</span>
+              </button>
+            </div>
+
           </div>
 
         </form>
