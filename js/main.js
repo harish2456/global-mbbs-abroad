@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <button onclick="document.getElementById('genericModal').classList.add('hidden'); document.body.style.overflow='';" class="trigger-counselling-modal flex-1 bg-teal-800 hover:bg-teal-900 text-white font-bold py-2.5 rounded-xl transition text-center text-xs">
               Apply for ${country}
             </button>
-            <a href="https://wa.me/919876543210?text=Hello%20Global%20MBBS%20Abroad,%20I%20am%20interested%20in%20${encodeURIComponent(country)}." target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
+            <a href="https://wa.me/917760665912?text=Hello%20Global%20MBBS%20Abroad,%20I%20am%20interested%20in%20${encodeURIComponent(country)}." target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2">
               WhatsApp
             </a>
           </div>
